@@ -26,8 +26,8 @@ import UIKit
 //
 class createChirpsViewController: UIViewController {
 
-    @IBOutlet var chirpText: UITextView
-    @IBOutlet var charRemaining: UILabel
+    @IBOutlet var chirpText: UITextView? = UITextView()
+    @IBOutlet var charRemaining: UILabel? = UILabel()
     init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: NSBundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         // Custom initialization
@@ -40,10 +40,10 @@ class createChirpsViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        chirpText.layer.borderColor = UIColor.blackColor().CGColor
-        chirpText.layer.borderWidth = 0.5
-        chirpText.layer.cornerRadius = 5
-        chirpText.becomeFirstResponder()
+        chirpText!.layer.borderColor = UIColor.blackColor().CGColor
+        chirpText!.layer.borderWidth = 0.5
+        chirpText!.layer.cornerRadius = 5
+        chirpText!.becomeFirstResponder()
         // Do any additional setup after loading the view.
     }
 
@@ -56,7 +56,7 @@ class createChirpsViewController: UIViewController {
         //Creating a Parse class called chirp by object instantiation. Yeah wierd.
         var chirp: PFObject = PFObject(className: "chirp")
         //now we will create class attributes on the fly. 
-        chirp["content"] = chirpText.text
+        chirp["content"] = chirpText!.text
         chirp["chirper"] = PFUser.currentUser()
         chirp.saveInBackground()
         //Now once the chirp is completed, just move on to the home screen

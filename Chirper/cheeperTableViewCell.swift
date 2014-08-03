@@ -13,9 +13,9 @@ import UIKit
 
 class cheeperTableViewCell: UITableViewCell {
 
-    @IBOutlet var usernameLabel: UILabel
-    @IBOutlet var timeStampLabel: UILabel
-    @IBOutlet var chprView: UITextView
+    @IBOutlet strong var usernameLabel: UILabel? = UILabel()
+    @IBOutlet strong var timeStampLabel: UILabel? = UILabel()
+    @IBOutlet strong var chprView: UITextView? = UITextView()
     init(style: UITableViewCellStyle, reuseIdentifier: String) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         // Initialization code

@@ -72,7 +72,7 @@ class timeLineTableViewController: UITableViewController {
                         println("Success Registration")
                     }
                     else{
-                        let errorstring = error.userInfo["error"] as String
+                        let errorstring = error!.userInfo["error"]
                     }
                 }
                 }))
@@ -127,14 +127,15 @@ class timeLineTableViewController: UITableViewController {
         self.timelinedata = []
         var getTimeLinedata: PFQuery = PFQuery(className: "chirp")
         getTimeLinedata.findObjectsInBackgroundWithBlock{
-            (objects: AnyObject[]!, error: NSError!) -> Void in
+            (objects: [AnyObject]!, error: NSError!) -> Void in
             if(!error){
-                for object:PFObject! in objects{
+                println("Nothing went wrong")
+                for object in objects{
                     self.timelinedata.addObject(object)
                 }
                 let array:NSArray = self.timelinedata.reverseObjectEnumerator().allObjects
                 self.timelinedata = array as NSMutableArray
-                print(self.timelinedata)
+                //print(self.timelinedata)
             }
         }
         println("This function is being called")
@@ -150,19 +151,21 @@ class timeLineTableViewController: UITableViewController {
     override func tableView(tableView: UITableView?, numberOfRowsInSection section: Int) -> Int {
         // #warning Incomplete method implementation.
         // Return the number of rows in the section.
-        println(self.timelinedata.count)
         println("Tha above was from table view int return ")
-        println(timelinedata)
-        return timelinedata.count
+        println(self.timelinedata)
+        println(self.timelinedata.count)
+        return self.timelinedata.count
     }
 
     
     override func tableView(tableView: UITableView?, cellForRowAtIndexPath indexPath: NSIndexPath?) -> UITableViewCell? {
-        let cell:cheeperTableViewCell = tableView!.dequeueReusableCellWithIdentifier("reuseIdentifier", forIndexPath: indexPath) as cheeperTableViewCell
-        var chirp:PFObject = timelinedata.objectAtIndex(indexPath!.row) as PFObject
+        println("This is getting called")
+        let cell:cheeperTableViewCell = tableView!.dequeueReusableCellWithIdentifier("Cell", forIndexPath: indexPath) as cheeperTableViewCell
+        var chirp:PFObject = self.timelinedata.objectAtIndex(indexPath!.row) as PFObject
+        println("Casting complete")
         // Configure the cell...
-        cell.chprView.text = chirp.objectForKey("content") as String
-        cell.usernameLabel.text = chirp.objectForKey("chirper") as String
+        cell.chprView!.text = chirp.objectForKey("content") as String
+        //cell.usernameLabel!.text = chirp.objectForKey("chirper") as String
         //cell.usernameLabel.text = chirp.d
         println("Table view cell being called")
         return cell
